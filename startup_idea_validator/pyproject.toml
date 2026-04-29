@@ -1,0 +1,30 @@
+[project]
+name = "startup_idea_validator"
+version = "0.1.0"
+description = "startup-idea-validator using crewAI"
+authors = [{ name = "Your Name", email = "you@example.com" }]
+requires-python = ">=3.10,<3.14"
+dependencies = [
+    "crewai[litellm,tools]==1.14.3",
+    "groq>=1.2.0",
+    "selenium>=4.43.0",
+    "streamlit>=1.57.0",
+    "watchdog>=6.0.0",
+    "webdriver-manager>=4.0.2",
+]
+
+[project.scripts]
+startup_idea_validator = "startup_idea_validator.main:run"
+run_crew = "startup_idea_validator.main:run"
+train = "startup_idea_validator.main:train"
+replay = "startup_idea_validator.main:replay"
+test = "startup_idea_validator.main:test"
+run_with_trigger = "startup_idea_validator.main:run_with_trigger"
+run_ui = "startup_idea_validator.app:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.crewai]
+type = "crew"

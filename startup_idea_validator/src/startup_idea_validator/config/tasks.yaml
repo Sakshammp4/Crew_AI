@@ -1,0 +1,52 @@
+idea_analysis_task:
+  description: >
+    Analyze the startup {idea} in MAX 200 words total.
+    Provide ONLY:
+    - 1 sentence problem statement
+    - 1 sentence target user
+    - 1 sentence why it matters
+    - 1 sentence: strong or weak problem (and why)
+    Be extremely concise. No fluff.
+  expected_output: >
+    A 50-200 word structured breakdown with 4 bullet points max.
+  agent: idea_analyst
+  output_file: output/01_idea_analysis.md
+
+market_analysis_task:
+  description: >
+    Use web search tool to research {idea}. Search for competitors and market info.
+    In MAX 200 words total, list:
+    - Top 3 competitors found (1 line each)
+    - 1 gap/opportunity discovered
+    - 1 sentence on differentiation
+    Be brief. No detailed explanations.
+  expected_output: >
+    A 50-200 word market summary with bullet points.
+  agent: market_analyst
+  output_file: output/02_market_analysis.md
+
+customer_research_task:
+  description: >
+    Create interview plan for {idea} in MAX 200 words total.
+    Provide ONLY:
+    - 5 essential questions (1 line each)
+    - 1 sentence on how to ask
+    - 2 signals to watch for
+    Keep it minimal and actionable.
+  expected_output: >
+    A 50-200 word interview guide with 5 questions max.
+  agent: customer_insight_agent
+  output_file: output/03_customer_research.md
+
+final_decision_task:
+  description: >
+    Generate final validation for {idea} in MAX 200 words total.
+    Provide ONLY:
+    - Score: X/10
+    - Verdict: Good/Average/Bad
+    - 3 bullet points (1 sentence each) explaining why
+    No intro, no conclusion. Just the verdict.
+  expected_output: >
+    A 50-200 word final verdict with score and 3 reasons.
+  agent: idea_analyst
+  output_file: output/04_final_report.md

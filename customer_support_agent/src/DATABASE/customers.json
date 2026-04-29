@@ -1,0 +1,37 @@
+{
+  "customers": [
+    {
+      "customer_id": "CUS-1001",
+      "name": "Priya Sharma",
+      "email": "priya.sharma@gmail.com",
+      "phone": "+91-9812345678",
+      "joined_at": "2024-06-10",
+      "glow_points": 340,
+      "total_orders": 7,
+      "lifetime_value": 11240,
+      "tier": "silver"
+    },
+    {
+      "customer_id": "CUS-1002",
+      "name": "Rohit Mehta",
+      "email": "rohit.mehta@outlook.com",
+      "phone": "+91-9988776655",
+      "joined_at": "2024-11-01",
+      "glow_points": 60,
+      "total_orders": 2,
+      "lifetime_value": 1296,
+      "tier": "basic"
+    },
+    {
+      "customer_id": "CUS-1003",
+      "name": "Meera Iyer",
+      "email": "meera.iyer@yahoo.com",
+      "phone": "+91-9123456789",
+      "joined_at": "2023-03-22",
+      "glow_points": 890,
+      "total_orders": 19,
+      "lifetime_value": 38700,
+      "tier": "gold"
+    }
+  ]
+}

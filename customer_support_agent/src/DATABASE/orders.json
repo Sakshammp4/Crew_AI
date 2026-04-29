@@ -1,0 +1,57 @@
+{
+  "orders": [
+    {
+      "order_id": "ORD-8821",
+      "customer_email": "priya.sharma@gmail.com",
+      "status": "in_transit",
+      "placed_at": "2025-01-20T10:30:00Z",
+      "estimated_delivery": "2025-01-25",
+      "tracking_id": "DELHIVERY88219921",
+      "courier": "Delhivery",
+      "items": [
+        { "product_id": "SKN-041", "name": "Vitamin C Serum 30ml", "qty": 1, "price": 799 },
+        { "product_id": "HOM-017", "name": "Lavender Reed Diffuser", "qty": 2, "price": 649 }
+      ],
+      "subtotal": 2097,
+      "discount": 0,
+      "total": 2097,
+      "payment_method": "UPI",
+      "payment_status": "paid"
+    },
+    {
+      "order_id": "ORD-9104",
+      "customer_email": "rohit.mehta@outlook.com",
+      "status": "delivered",
+      "placed_at": "2025-01-15T14:00:00Z",
+      "delivered_at": "2025-01-18T11:00:00Z",
+      "tracking_id": "BLUEDRT99021",
+      "courier": "Blue Dart",
+      "items": [
+        { "product_id": "MKP-022", "name": "Matte Lipstick - Berry Red", "qty": 2, "price": 349 }
+      ],
+      "subtotal": 698,
+      "discount": 100,
+      "total": 598,
+      "payment_method": "Credit Card",
+      "payment_status": "paid",
+      "return_status": "return_requested",
+      "return_reason": "wrong color received"
+    },
+    {
+      "order_id": "ORD-9352",
+      "customer_email": "meera.iyer@yahoo.com",
+      "status": "processing",
+      "placed_at": "2025-01-22T09:15:00Z",
+      "estimated_dispatch": "2025-01-23",
+      "items": [
+        { "product_id": "HOM-031", "name": "Soy Wax Candle Set (3pc)", "qty": 1, "price": 1299 },
+        { "product_id": "SKN-078", "name": "Hyaluronic Acid Moisturizer", "qty": 1, "price": 899 }
+      ],
+      "subtotal": 2198,
+      "discount": 330,
+      "total": 1868,
+      "payment_method": "COD",
+      "payment_status": "pending"
+    }
+  ]
+}

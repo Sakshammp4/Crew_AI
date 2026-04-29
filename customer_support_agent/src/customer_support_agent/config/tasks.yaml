@@ -1,0 +1,113 @@
+# config/tasks.yaml
+# One task per agent — sequential flow:
+# classify → route → (faq OR technical OR escalation) → final response
+
+classify_task:
+  description: |
+    Read the following customer message carefully:
+
+    "{user_message}"
+
+    Determine the intent and classify it into EXACTLY one of these three
+    categories:
+    - faq: General policy/product questions answerable from a knowledge base
+    - technical: Queries requiring a specific order ID, tracking info,
+      account balance, refund status, or inventory lookup
+    - escalation: High-emotion complaints, damaged items, fraud reports,
+      repeated unresolved issues, or anything needing a human decision
+
+    Rules:
+    - If unsure between faq and technical → choose technical
+    - If unsure between technical and escalation → choose escalation
+    - Output ONLY valid JSON, no explanation text outside the JSON block
+  expected_output: |
+    A JSON object with this exact structure:
+    {
+      "category": "faq" | "technical" | "escalation",
+      "confidence": 0.0 to 1.0,
+      "reason": "one sentence explaining the classification"
+    }
+
+faq_task:
+  description: |
+    A customer has sent the following message:
+
+    "{user_message}"
+
+    The classifier has identified this as a FAQ-type query.
+
+    Your job:
+    1. Use the search_knowledge_base tool to find relevant sections
+       from the Glowmart knowledge base.
+    2. Read the returned content carefully.
+    3. Write a clear, warm, concise answer (under 120 words) based ONLY
+       on what the knowledge base says.
+    4. If the knowledge base does not contain the answer, set
+       handoff to true and explain you will connect them with the team.
+    5. Never invent policies, prices, or product information.
+  expected_output: |
+    Return ONLY a raw JSON object (no markdown, no ```, no extra text):
+    {"response":"Your clear answer to the customer","sources":["section names used"],"handoff":false}
+
+technical_task:
+  description: |
+    A customer has sent the following message:
+
+    "{user_message}"
+    Customer email (if known): {user_email}
+
+    YOUR JOB: Help the customer with their order/account query using the available tools.
+
+    STEP 1: Check what information is available:
+    - Order ID in message? (format: ORD-XXXX)
+    - Email available? {user_email}
+
+    STEP 2: Call the appropriate tool:
+    - If Order ID found in message: Call lookup_order tool with that order_id
+    - If NO Order ID but email is provided: Call lookup_customer tool with the email
+      → The result will include "orders" array with real order IDs
+      → Pick the most recent order_id from customer.orders (last item in array)
+      → Call lookup_order with that order_id
+    - If asking about product stock: Call check_inventory tool
+    - If neither Order ID nor email: Ask customer politely for one of them
+
+    STEP 3: After getting tool results, present ALL relevant order details:
+    - Order status (in_transit, delivered, processing, etc.)
+    - All items ordered: product names and quantities
+    - Tracking number and courier name
+    - Expected or actual delivery date
+    - Payment status and method
+    - Any issues (delayed, damaged, return requested, etc.)
+
+    IMPORTANT: You MUST call the tools to get data. Don't describe what you would do - actually call the tool and use the result.
+
+  expected_output: |
+    CRITICAL: Once you have the data from the tool, STOP calling tools and generate the final response.
+
+    Return ONLY a raw JSON object (no markdown, no ```, no extra text). Include full order details:
+    {"response":"Your order ORD-XXXX is [status]. You ordered: [item1 qty1], [item2 qty2]. Tracking: [courier] [tracking_id]. Delivery: [date]. Payment: [status].","data_used":{"order_id":"the order ID","customer_email":"the email"},"escalate":false,"escalation_summary":null}
+
+escalation_task:
+  description: |
+    A customer has sent the following message:
+
+    "{user_message}"
+    Customer email: {user_email}
+    Prior agent summary (if routed from technical agent): {escalation_summary}
+
+    This issue requires human intervention.
+
+    Your job:
+    1. Determine the priority level using this guide:
+       - critical: fraud, legal threat, data breach
+       - high: damaged/wrong item received, 3+ unresolved contacts
+       - medium: refund delayed over 7 days, repeated delivery failure
+       - low: general dissatisfaction, tone complaint
+    2. Call the create_ticket tool with a structured ticket payload
+    3. If priority is high or critical → call send_notification tool
+    4. Write a warm, empathetic response to the customer that includes
+       the ticket ID so they can reference it later
+    5. Do NOT promise specific resolution timelines unless policy says so
+  expected_output: |
+    Return ONLY a raw JSON object (no markdown, no ```, no extra text):
+    {"response":"Warm empathetic message to customer with ticket ID","ticket_id":"TKT-XXXX","priority":"high","notification_sent":true}

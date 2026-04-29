@@ -1,0 +1,9 @@
+{
+  "products": [
+    { "product_id": "SKN-041", "name": "Vitamin C Serum 30ml", "category": "beauty/skincare", "price": 799, "in_stock": true, "quantity": 142, "rating": 4.6 },
+    { "product_id": "SKN-078", "name": "Hyaluronic Acid Moisturizer", "category": "beauty/skincare", "price": 899, "in_stock": true, "quantity": 87, "rating": 4.8 },
+    { "product_id": "MKP-022", "name": "Matte Lipstick - Berry Red", "category": "beauty/makeup", "price": 349, "in_stock": false, "quantity": 0, "rating": 4.3 },
+    { "product_id": "HOM-017", "name": "Lavender Reed Diffuser", "category": "home/fragrance", "price": 649, "in_stock": true, "quantity": 34, "rating": 4.7 },
+    { "product_id": "HOM-031", "name": "Soy Wax Candle Set (3pc)", "category": "home/candles", "price": 1299, "in_stock": true, "quantity": 56, "rating": 4.9 }
+  ]
+}
